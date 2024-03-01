@@ -7,70 +7,42 @@ local M = {}
 
 M.huge = math.huge
 M.pi = math.pi
-M.e = 2.718281828459045
----@diagnostic disable-next-line: undefined-field
-if math.maxinteger then
-    ---@diagnostic disable-next-line: undefined-field
-    M.maxinteger = math.maxinteger
-else
-    M.maxinteger = 0x7FFFFFFF
-end
----@diagnostic disable-next-line: undefined-field
-if math.mininteger then
-    ---@diagnostic disable-next-line: undefined-field
-    M.mininteger = math.mininteger
-else
-    M.mininteger = -0x80000000
-end
 
---- normal
+--- general
 
 M.max = math.max
 M.min = math.min
 M.abs = math.abs
+M.fmod = math.fmod
+M.modf = math.modf
 M.floor = math.floor
 M.ceil = math.ceil
----@diagnostic disable-next-line: deprecated
-if math.tointeger  then
-    ---@diagnostic disable-next-line: deprecated
-    M.tointeger = math.tointeger
-else
-    ---@param x any
-    ---@return integer?
-    ---@nodiscard
-    ---@diagnostic disable-next-line: duplicate-set-field
-    function M.tointeger(x)
-        local v = tonumber(x)
-        if not v then
-            return nil
-        end
-        if math.floor(v) == v then
-            return v
-        else
-            return nil
-        end
+
+---@param x number
+---@return number
+function M.round(x)
+    local l, r = M.floor(x), M.ceil(x)
+    if (x - l) < (r - x) then
+        return l
+    else
+        return r
     end
 end
-if math.type then
-    M.type = math.type
-else
-    ---@param x any
-    ---@return
-    ---| '"integer"'
-    ---| '"float"'
-    ---| nil
-    ---@nodiscard
-    ---@diagnostic disable-next-line: duplicate-set-field
-    function M.type(x)
-        if type(x) == "number" then
-            return "float"
-        else
-            return nil
-        end
-    end
+
+---@param x number
+---@param min number
+---@param max number
+---@return number
+function M.clamp(x, min, max)
+    return M.max(min, M.min(x, max))
 end
-function M.ult(m, n)
-    -- TODO
+
+---@param a number
+---@param b number
+---@param k number
+---@return number
+function M.lerp(a, b, k)
+    return a * (1.0 - k) + b * k
 end
 
 --- unit convert
@@ -99,10 +71,17 @@ if math.atan2 then
             return math.atan(y)
         end
     end
-    M.atan2 = math.atan2
 else
-    M.atan = math.atan
-    M.atan2 = math.atan
+    --- Returns the arc tangent of `y/x` (in radians).  
+    ---@param y  number
+    ---@param x? number
+    ---@return number
+    ---@nodiscard
+    ---@diagnostic disable-next-line: duplicate-set-field
+    function M.atan(y, x)
+        ---@diagnostic disable-next-line: redundant-parameter
+        return math.atan(y, x)
+    end
 end
 M.sqrt = math.sqrt
 
@@ -117,7 +96,7 @@ else
     ---@nodiscard
     ---@diagnostic disable-next-line: duplicate-set-field
     function M.cosh(x)
-        return (M.pow(M.e, x) + M.pow(M.e, -x)) / 2.0
+        return (M.exp(x) + M.exp(-x)) / 2.0
     end
 end
 if math.sinh then
@@ -129,7 +108,7 @@ else
     ---@nodiscard
     ---@diagnostic disable-next-line: duplicate-set-field
     function M.sinh(x)
-        return (M.pow(M.e, x) - M.pow(M.e, -x)) / 2.0
+        return (M.exp(x) - M.exp(-x)) / 2.0
     end
 end
 if math.tanh then
@@ -145,12 +124,16 @@ else
     end
 end
 
---- index function
+--- power & exponential function
 
 if math.pow then
-    -- lua 5.2 removed
     M.pow = math.pow
 else
+    --- Returns `x ^ y` .  
+    ---@param x number
+    ---@param y number
+    ---@return number
+    ---@nodiscard
     ---@diagnostic disable-next-line: duplicate-set-field
     function M.pow(x, y)
         return x ^ y
@@ -161,45 +144,6 @@ M.exp = math.exp
 --- logarithm function
 
 M.log = math.log
-if math.log10 then
-    -- lua 5.2 removed
-    M.log10 = math.log10
-else
-    --- Returns the base-10 logarithm of x.  
-    ---@param x number
-    ---@return number
-    ---@nodiscard
-    ---@diagnostic disable-next-line: duplicate-set-field
-    function M.log10(x)
-        return M.log(x, 10)
-    end
-end
-
---- other
-
-M.fmod = math.fmod
-M.modf = math.modf
-if math.frexp then
-    M.frexp = math.frexp
-else
-    ---@diagnostic disable-next-line: duplicate-set-field
-    function M.frexp(x)
-        -- TODO
-    end
-end
-if math.ldexp then
-    M.ldexp = math.ldexp
-else
-    --- Returns `m * (2 ^ e)` .  
-    ---@param m number
-    ---@param e number
-    ---@return number
-    ---@nodiscard
-    ---@diagnostic disable-next-line: duplicate-set-field
-    function M.ldexp(m, e)
-        return m * (2 ^ e)
-    end
-end
 
 --- random
 
