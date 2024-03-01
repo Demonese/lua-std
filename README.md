@@ -2,7 +2,7 @@
 
 I can no longer tolerate: write the same basic code in different projects.
 
-## Math
+## `std.math`
 
 * Constant
     * `std.math.huge`: from `math.huge`
@@ -41,3 +41,18 @@ I can no longer tolerate: write the same basic code in different projects.
 * Random
     * `std.math.random`: from `math.random`
     * `std.math.randomseed`: from `math.randomseed`
+
+## `std.table`
+
+* modify
+    * `std.table.insert`: from `table.insert`
+    * `std.table.remove`: from `table.remove`
+    * `std.table.sort`: from `table.sort`
+* generate
+    * `std.table.concat`: from `table.concat`
+* pack/unpack
+    * `std.table.pack`: from `table.pack`
+    * `std.table.unpack`: from `table.unpack`
+* clone & copy
+    * `std.table.clone`
+    * `std.table.copy`

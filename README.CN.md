@@ -41,3 +41,18 @@
 * 随机数
     * `std.math.random`：来自 `math.random`
     * `std.math.randomseed`：来自 `math.randomseed`
+
+## 表库
+
+* 修改
+    * `std.table.insert`：来自 `table.insert`
+    * `std.table.remove`：来自 `table.remove`
+    * `std.table.sort`：来自 `table.sort`
+* 生成
+    * `std.table.concat`：来自 `table.concat`
+* 参数打包/解包
+    * `std.table.pack`：来自 `table.pack`
+    * `std.table.unpack`：来自 `table.unpack`
+* 复制
+    * `std.table.clone`
+    * `std.table.copy`

@@ -1,5 +1,46 @@
+local table = require("table")
+
 ---@class std.table
 local M = {}
+
+--- modify
+
+M.insert = table.insert
+M.remove = table.remove
+M.sort = table.sort
+
+--- generate
+
+M.concat = table.concat
+
+--- pack/unpack
+
+if table.pack then
+    M.pack = table.pack
+else
+    ---  Returns a new table with all arguments stored into keys `1`, `2`, etc. and with a field `"n"` with the total number of arguments.  
+    ---@return table
+    ---@nodiscard
+    ---@diagnostic disable-next-line: duplicate-set-field
+    function M.pack(...)
+        local args = {...}
+        local size = select("#", ...)
+        ---@diagnostic disable-next-line: inject-field
+        args.n = size
+        return args
+    end
+end
+
+if table.unpack then
+    M.unpack = table.unpack
+else
+    M.unpack = unpack
+end
+
+--M.maxn = table.maxn
+--M.move = table.move
+
+--- clone & copy
 
 ---@generic A
 ---@generic B
