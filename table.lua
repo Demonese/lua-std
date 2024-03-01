@@ -3,6 +3,22 @@ local table = require("table")
 ---@class std.table
 local M = {}
 
+--- access
+
+---@generic T
+---@param t T[] | { [integer]: T }
+---@return T
+function M.front(t)
+    return t[1]
+end
+
+---@generic T
+---@param t T[] | { [integer]: T }
+---@return T
+function M.back(t)
+    return t[#t]
+end
+
 --- modify
 
 M.insert = table.insert

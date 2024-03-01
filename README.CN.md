@@ -44,6 +44,9 @@
 
 ## `std.table`
 
+* 访问
+    * `std.table.front`
+    * `std.table.back`
 * 修改
     * `std.table.insert`：来自 `table.insert`
     * `std.table.remove`：来自 `table.remove`

@@ -44,6 +44,9 @@ I can no longer tolerate: write the same basic code in different projects.
 
 ## `std.table`
 
+* access
+    * `std.table.front`
+    * `std.table.back`
 * modify
     * `std.table.insert`: from `table.insert`
     * `std.table.remove`: from `table.remove`
