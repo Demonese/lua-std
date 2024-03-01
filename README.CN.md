@@ -2,7 +2,7 @@
 
 我受够了每次都要在不同的项目中编写相同的基础代码。
 
-## 数学库
+## `std.math`
 
 * 常量
     * `std.math.huge`：来自 `math.huge`
@@ -42,7 +42,7 @@
     * `std.math.random`：来自 `math.random`
     * `std.math.randomseed`：来自 `math.randomseed`
 
-## 表库
+## `std.table`
 
 * 修改
     * `std.table.insert`：来自 `table.insert`
